@@ -123,6 +123,26 @@ def main():
                         vk.messages.send(message=eat_help,
                                          random_id=random.randint(0, 2 ** 64),
                                          peer_id=event.obj['peer_id'])
+                    if ('как' in text or 'шо' in text or 'че' in text or 'што' in text or 'что' in text) and \
+                            ('сил' in text or "кач" in text):
+                        vk.messages.send(message=strength_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if ('как' in text or 'шо' in text or 'че' in text or 'што' in text or 'что' in text) and \
+                            ('нивел' in text or 'ниву' in text or 'nivelad' in text):
+                        vk.messages.send(message=nivelada_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if ('как' in text or 'шо' in text or 'че' in text or 'што' in text or 'что' in text) and \
+                            ('эску' in text or 'escuad' in text):
+                        vk.messages.send(message=escuadra_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if ('как' in text or 'шо' in text or 'че' in text or 'што' in text or 'что' in text) and \
+                            ('anclad' in text or 'флаг' in text or 'анклад' in text):
+                        vk.messages.send(message=anclado_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
 
         except Exception:
             pass
@@ -150,7 +170,8 @@ if __name__ == '__main__':
     flexibility = "Увеличение гибкости в Джимбарре:" \
                   "\n✅ Правила растяжки: vk.cc/c4kknf" \
                   "\n✅ Топ упражнений часть1: vk.cc/c4kks6" \
-                  "\n✅ Топ упражнений часть2: vk.cc/c4kksX "
+                  "\n✅ Топ упражнений часть2: vk.cc/c4kksX" \
+                  "\n✅ Биомеханика: vk.cc/ceffgy"
     modifications = "Все термины в Джимбарре:" \
                     "\n✅ Определения: vk.cc/c4kkJ1" \
                     "\n✅ Все перехваты: vk.cc/c4kk3i" \
@@ -184,4 +205,20 @@ if __name__ == '__main__':
     eat_help = "Советы по питанию:" \
                   "\n✅ Желатин, коллаген: https://vk.cc/ca6OCE" \
                   "\n✅ Электролиты, минералка, изотоник: https://vk.cc/ca6OIC"
+    strength_help = "Увеличение силы в Джимбарре:" \
+                  "\n✅ Типы мышечных волокон: vk.cc/ceff9p" \
+                  "\n✅ СФП и периодизация тренировок: vk.cc/ceffe7" \
+                  "\n✅ Биомеханика: vk.cc/ceffgy"
+    nivelada_help = "Изучение нивелады в Джимбарре:" \
+                  "\n✅ Начальное изучение: vk.cc/ceffKY" \
+                  "\n✅ Улучшение нивелады: vk.cc/ceffIC"\
+                  "\n✅ Нивелада Y: vk.cc/ceffX5"
+    escuadra_help = "Изучение эскуадры в Джимбарре:" \
+                    "\n✅ Начальное изучение: vk.cc/ceffTA" \
+                    "\n✅ Виды эскуадры: vk.cc/ceffS8"
+    anclado_help = "Изучение флагов в Джимбарре:" \
+                    "\n✅ Начальное изучение: vk.cc/cefg2j" \
+                    "\n✅ Улучшение флага: vk.cc/cefg4A"\
+                    "\n✅ Сложные флаги: vk.cc/c4kRwo"\
+                    "\n✅ Простые флаги: vk.cc/c4kRbU"
     main()
