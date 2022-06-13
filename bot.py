@@ -6,7 +6,7 @@ import sys
 
 
 def until_sbor():
-    sbor_date = datetime.date(2022, 8, 22)
+    sbor_date = datetime.date(2022, 8, 21)
     today_date = datetime.date.today()
     until = str((sbor_date - today_date).days)
     if until[-1] == '1':
@@ -33,11 +33,16 @@ def main():
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     print(event.obj)
                     text = ''.join(event.obj['text'].lower().split())
-                    if 'бот' in text and 'выключить.' in text and '1987' in text and event.obj['from_id'] == 215831994:
-                        vk.messages.send(message='Бот выключен.',
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                        sys.exit()
+                    if 'бот' in text and 'выключить.' in text and '1987' in text:
+                        if event.obj['from_id'] == 215831994:
+                            vk.messages.send(message='Бот выключен.',
+                                            random_id=random.randint(0, 2 ** 64),
+                                            peer_id=event.obj['peer_id'])
+                            sys.exit()
+                        else:
+                            vk.messages.send(message='У тебя здесь нет власти.',
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
                     if ('как' in text or 'какой' in text) and ('эл' in text or 'назва' in text or 'называ' in text):
                         vk.messages.send(message=help_name,
                                          random_id=random.randint(0, 2 ** 64),
@@ -153,7 +158,7 @@ def main():
 if __name__ == '__main__':
     sbor_message = "Сбор 2021" \
                    "\n🗺 Место:г. Москва, метро Орехово, площадка в парке «Борисовские пруды»." \
-                   "\n🕑 Время:22 августа 14:00" \
+                   "\n🕑 Время:21 августа 14:00" \
                    "\nОстальная инфа по сбору: vk.cc/gimbarrpublic" \
                    "\nБеседа по сбору: vk.cc/c4kkc5"
     welcome_message = "Пивет! Это беседа по Джимбарру 🌿" \
