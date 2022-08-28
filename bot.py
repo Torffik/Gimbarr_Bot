@@ -26,9 +26,6 @@ def main():
                 token='9c8e42b7711b8cf451444c94f917ea645bdc5c516c79ba2ee7cb7fef7151375e6187efacdd1ce40b4243f')
             longpoll = VkBotLongPoll(vk_session, 204026405)
             vk = vk_session.get_api()
-            vk.messages.send(message='Бот включен.',
-                             random_id=random.randint(0, 2 ** 64),
-                             peer_id='2000000002')
             for event in longpoll.listen():
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     print(event.obj)
