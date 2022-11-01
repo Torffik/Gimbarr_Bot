@@ -165,7 +165,7 @@ def main():
                                          random_id=random.randint(0, 2 ** 64),
                                          peer_id=event.obj['peer_id'])
                     if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('cript' in text or 'крипта' in text or 'aqua' in text or 'аква' in text or 'палечн' in text):
+                            ('cript' in text or 'крипт' in text or 'aqua' in text or 'аква' in text or 'палечн' in text):
                         vk.messages.send(message=cripta_help,
                                          random_id=random.randint(0, 2 ** 64),
                                          peer_id=event.obj['peer_id'])
