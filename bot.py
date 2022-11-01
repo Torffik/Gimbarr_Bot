@@ -283,5 +283,4 @@ if __name__ == '__main__':
     cripta_help = "Как развить хват Cripta/Aqua:" \
                   "\n✅ Обучалка от Юрия Юрия: https://vk.cc/cgxVmi" \
                   "\n✅ Видео (Любимый Алекс❤): https://vk.cc/cgxVfF"
-
     main()
