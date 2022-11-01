@@ -149,6 +149,31 @@ def main():
                         vk.messages.send(message=': (',
                                          random_id=random.randint(0, 2 ** 64),
                                          peer_id=event.obj['peer_id'])
+                    if (is_in_text('what', text) or is_in_text('help', text)) and \
+                            ('morter' in text or 'мортер' in text or 'кокон' in text):
+                        vk.messages.send(message=mortero_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if (is_in_text('what', text) or is_in_text('help', text)) and \
+                            ('gan' in text or 'ган' in text or 'уно' in text or 'uno' in text or 'фрауд' in text or 'fraud' in text):
+                        vk.messages.send(message=ungan_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if (is_in_text('what', text) or is_in_text('help', text)) and \
+                            ('singl' in text or 'сингл' in text or 'савок' in text or 'sawok' in text or 'бамбин' in text or 'bambin' in text):
+                        vk.messages.send(message=single_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if (is_in_text('what', text) or is_in_text('help', text)) and \
+                            ('cript' in text or 'крипта' in text or 'aqua' in text or 'аква' in text or 'палечн' in text):
+                        vk.messages.send(message=cripta_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
+                    if (is_in_text('what', text) or is_in_text('help', text)) and \
+                            ('kraken' in text or 'кракен' in text or 'doman' in text or 'доман' in text):
+                        vk.messages.send(message=kraken_help,
+                                         random_id=random.randint(0, 2 ** 64),
+                                         peer_id=event.obj['peer_id'])
 
         except Exception:
             pass
@@ -248,15 +273,15 @@ if __name__ == '__main__':
                    "\n✅ Сложные флаги: vk.cc/c4kRwo"\
                    "\n✅ Простые флаги: vk.cc/c4kRbU"
     mortero_help = "Разбор группы Mortero:" \
-                   "\n• Видео (Xenos Project): https://vk.cc/cgxURv"
+                   "\n✅ Видео (Любимый Алекс❤): https://vk.cc/cgxURv"
     ungan_help = "Разбор группы Ungan:" \
-                 "\n• Видео (Xenos Project): https://vk.cc/cgxV33"
+                 "\n✅ Видео (Любимый Алекс❤): https://vk.cc/cgxV33"
     single_help = "Разбор группы Single" \
-                  "\n• Видео (Xenos Project): https://vk.cc/cgxVdO"
+                  "\n✅ Видео (Любимый Алекс❤): https://vk.cc/cgxVdO"
     kraken_help = "Разбор группы Kraken" \
-                  "\n• Видео (Xenos Project): https://vk.cc/cgxV87"
+                  "\n✅ Видео (Любимый Алекс❤): https://vk.cc/cgxV87"
     cripta_help = "Как развить хват Cripta/Aqua:" \
-                  "\n• Обучалка от Юрия Юрия: https://vk.cc/cgxVmi" \
-                  "\n• Видео (Xenos Project): https://vk.cc/cgxVfF"
+                  "\n✅ Обучалка от Юрия Юрия: https://vk.cc/cgxVmi" \
+                  "\n✅ Видео (Любимый Алекс❤): https://vk.cc/cgxVfF"
 
     main()
