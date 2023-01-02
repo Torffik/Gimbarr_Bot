@@ -35,148 +35,153 @@ def until_sbor():
 def main():
     global sbor_message, welcome_message
     while True:
+        vk_session = vk_api.VkApi(
+            token='9c8e42b7711b8cf451444c94f917ea645bdc5c516c79ba2ee7cb7fef7151375e6187efacdd1ce40b4243f')
+        longpoll = VkBotLongPoll(vk_session, 204026405)
+        vk = vk_session.get_api()
         try:
-            vk_session = vk_api.VkApi(
-                token='9c8e42b7711b8cf451444c94f917ea645bdc5c516c79ba2ee7cb7fef7151375e6187efacdd1ce40b4243f')
-            longpoll = VkBotLongPoll(vk_session, 204026405)
-            vk = vk_session.get_api()
             for event in longpoll.listen():
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     print(event.obj)
                     text = ''.join(event.obj['text'].lower().split())
-                    if 'бот' in text and 'выключить.' in text and '1987' in text:
-                        if event.obj['from_id'] == 215831994 or\
-                           event.obj['from_id'] == 175494314:
-                            vk.messages.send(message='Бот выключен.',
+                    if 'бот,' == text[:4]:
+                        if 'бот' in text and 'выключить.' in text and '1987' in text:
+                            if event.obj['from_id'] == 215831994 or \
+                                    event.obj['from_id'] == 175494314:
+                                vk.messages.send(message='Бот выключен.',
+                                                 random_id=random.randint(0, 2 ** 64),
+                                                 peer_id=event.obj['peer_id'])
+                                sys.exit()
+                            else:
+                                vk.messages.send(message='У тебя здесь нет власти.',
+                                                 random_id=random.randint(0, 2 ** 64),
+                                                 peer_id=event.obj['peer_id'])
+
+                        if is_in_text('what', text) and (is_in_text('trick', text) or is_in_text('name', text)):
+                            vk.messages.send(message=help_name,
                                              random_id=random.randint(0, 2 ** 64),
                                              peer_id=event.obj['peer_id'])
-                            sys.exit()
-                        else:
-                            vk.messages.send(message='У тебя здесь нет власти.',
+
+                        if 'через' in text and 'боль' in text:
+                            vk.messages.send(message=f"Зачем через боль? Тренируйся с умом:\n{flexibility}",
                                              random_id=random.randint(0, 2 ** 64),
                                              peer_id=event.obj['peer_id'])
 
-                    if is_in_text('what', text) and (is_in_text('trick', text) or is_in_text('name', text)):
-                        vk.messages.send(message=help_name,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-
-                    if 'через' in text and 'боль' in text:
-                        vk.messages.send(message=f"Зачем через боль? Тренируйся с умом:\n{flexibility}",
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-
-                    if is_in_text('thanks', text) and ('бот' in text):
-                        vk.messages.send(message="обращайся.",
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-
-                    if (is_in_text('where', text)) and ('сбор' in text):
-                        vk.messages.send(message=sbor_message,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if 'action' in event.obj:
-                        act = event.obj['action']
-                        if act['type'] == 'chat_invite_user' or act['type'] == 'chat_invite_user_by_link':
-                            vk.messages.send(message=welcome_message,
+                        if is_in_text('thanks', text) and ('бот' in text):
+                            vk.messages.send(message="обращайся.",
                                              random_id=random.randint(0, 2 ** 64),
                                              peer_id=event.obj['peer_id'])
-                    if is_in_text('help', text) and is_in_text('flexibility', text):
-                        vk.messages.send(message=flexibility,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if is_in_text('help', text or is_in_text('what', text)) \
-                            and is_in_text('name', text) or is_in_text('terms', text):
-                        vk.messages.send(message=modifications,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('help', text) or is_in_text('what', text)) and is_in_text('warmup', text):
-                        vk.messages.send(message=warmup,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if ('оцен' in text and 'техник' in text) \
-                            or ('разниц' in text or 'различ' in text or 'отлич' in text or 'инф' in text) \
-                            and ('техник' in text or 'исполн' in text):
-                        vk.messages.send(message=execution_technique,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if 'ддс' in text or (('дни' in text or 'дней' in text) and 'сбор' in text):
-                        vk.messages.send(message=f"До сбора осталось {until_sbor()}",
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if is_in_text('what', text) and (('начат' in text or 'нов' in text) or ('учит' in text)) :
-                        vk.messages.send(message=newbie_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text)) and (is_in_text('gimbarr', text)) or ('основ' in text):
-                        vk.messages.send(message=basic_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and (is_in_text('category', text)):
-                        vk.messages.send(message=category_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and is_in_text('eat', text):
-                        vk.messages.send(message=eat_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and is_in_text('strength', text):
-                        vk.messages.send(message=strength_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            (is_in_text('nivelada', text) or is_in_text('y', text)):
-                        vk.messages.send(message=nivelada_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and (is_in_text('escuadra', text)):
-                        vk.messages.send(message=escuadra_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('anclad' in text or 'флаг' in text or 'анклад' in text):
-                        vk.messages.send(message=anclado_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if is_in_text('hello', text) and ('бот' in text):
-                        vk.messages.send(message='ПОШЁЛ НА ХУЙ ПИДОРАС ТЫ ЕБАНЫЙ ЕБАЛ ТЕБЯ И ВСЮ ТВОЮ СЕМЬЮ'
-                                                 'И СЕМЬЮ ТВОЕЙ СЕМЬИ И ТВОИХ ДРУЗЕЙ И ИХ СЕМЬИ '
-                                                 'И ТВОИХ ПИТОМЦЕВ И ИХ ДРУЗЕЙ И ТВОИХ ЗНАКОМЫХ '
-                                                 'И ИХ СЕМЬИ И ИХ ДРУЗЕЙ ГАНДОН ШТОПАННЫЙ',
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if ('бот' in text) and ('хуеглот' in text):
-                        vk.messages.send(message=': (',
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('morter' in text or 'мортер' in text or 'кокон' in text):
-                        vk.messages.send(message=mortero_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('gan' in text or 'ган' in text or 'уно' in text or 'uno' in text or 'фрауд' in text or 'fraud' in text):
-                        vk.messages.send(message=ungan_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('singl' in text or 'сингл' in text or 'савок' in text or 'sawok' in text or 'бамбин' in text or 'bambin' in text):
-                        vk.messages.send(message=single_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('cript' in text or 'крипт' in text or 'aqua' in text or 'аква' in text or 'палечн' in text):
-                        vk.messages.send(message=cripta_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
-                    if (is_in_text('what', text) or is_in_text('help', text)) and \
-                            ('kraken' in text or 'кракен' in text or 'doman' in text or 'доман' in text):
-                        vk.messages.send(message=kraken_help,
-                                         random_id=random.randint(0, 2 ** 64),
-                                         peer_id=event.obj['peer_id'])
 
-        except Exception:
-            pass
+                        if (is_in_text('where', text)) and ('сбор' in text):
+                            vk.messages.send(message=sbor_message,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if 'action' in event.obj:
+                            act = event.obj['action']
+                            if act['type'] == 'chat_invite_user' or act['type'] == 'chat_invite_user_by_link':
+                                vk.messages.send(message=welcome_message,
+                                                 random_id=random.randint(0, 2 ** 64),
+                                                 peer_id=event.obj['peer_id'])
+                        if is_in_text('help', text) and is_in_text('flexibility', text):
+                            vk.messages.send(message=flexibility,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if is_in_text('help', text or is_in_text('what', text)) \
+                                and is_in_text('name', text) or is_in_text('terms', text):
+                            vk.messages.send(message=modifications,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('help', text) or is_in_text('what', text)) and is_in_text('warmup', text):
+                            vk.messages.send(message=warmup,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if ('оцен' in text and 'техник' in text) \
+                                or ('разниц' in text or 'различ' in text or 'отлич' in text or 'инф' in text) \
+                                and ('техник' in text or 'исполн' in text):
+                            vk.messages.send(message=execution_technique,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if 'ддс' in text or (('дни' in text or 'дней' in text) and 'сбор' in text):
+                            vk.messages.send(message=f"До сбора осталось {until_sbor()}",
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if is_in_text('what', text) and (('начат' in text or 'нов' in text) or ('учит' in text)):
+                            vk.messages.send(message=newbie_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text)) and (is_in_text('gimbarr', text)) or ('основ' in text):
+                            vk.messages.send(message=basic_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and (is_in_text('category', text)):
+                            vk.messages.send(message=category_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and is_in_text('eat', text):
+                            vk.messages.send(message=eat_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and is_in_text('strength', text):
+                            vk.messages.send(message=strength_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                (is_in_text('nivelada', text) or is_in_text('y', text)):
+                            vk.messages.send(message=nivelada_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and (is_in_text('escuadra', text)):
+                            vk.messages.send(message=escuadra_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                ('anclad' in text or 'флаг' in text or 'анклад' in text):
+                            vk.messages.send(message=anclado_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if is_in_text('hello', text) and ('бот' in text):
+                            vk.messages.send(message='ПОШЁЛ НА ХУЙ ПИДОРАС ТЫ ЕБАНЫЙ ЕБАЛ ТЕБЯ И ВСЮ ТВОЮ СЕМЬЮ'
+                                                     'И СЕМЬЮ ТВОЕЙ СЕМЬИ И ТВОИХ ДРУЗЕЙ И ИХ СЕМЬИ '
+                                                     'И ТВОИХ ПИТОМЦЕВ И ИХ ДРУЗЕЙ И ТВОИХ ЗНАКОМЫХ '
+                                                     'И ИХ СЕМЬИ И ИХ ДРУЗЕЙ ГАНДОН ШТОПАННЫЙ',
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if ('бот' in text) and ('хуеглот' in text):
+                            vk.messages.send(message=': (',
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                ('morter' in text or 'мортер' in text or 'кокон' in text):
+                            vk.messages.send(message=mortero_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                (
+                                        'gan' in text or 'ган' in text or 'уно' in text or 'uno' in text or 'фрауд' in text or 'fraud' in text):
+                            vk.messages.send(message=ungan_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                (
+                                        'singl' in text or 'сингл' in text or 'савок' in text or 'sawok' in text or 'бамбин' in text or 'bambin' in text):
+                            vk.messages.send(message=single_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                (
+                                        'cript' in text or 'крипт' in text or 'aqua' in text or 'аква' in text or 'палечн' in text):
+                            vk.messages.send(message=cripta_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+                        if (is_in_text('what', text) or is_in_text('help', text)) and \
+                                ('kraken' in text or 'кракен' in text or 'doman' in text or 'доман' in text):
+                            vk.messages.send(message=kraken_help,
+                                             random_id=random.randint(0, 2 ** 64),
+                                             peer_id=event.obj['peer_id'])
+        except Exception as ex:
+            vk.messages.send(message=f"Бота убило по причине: {ex}",
+                             random_id=random.randint(0, 2 ** 64),
+                             peer_id=215831994)
 
 
 if __name__ == '__main__':
